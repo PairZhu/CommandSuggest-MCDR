@@ -24,7 +24,7 @@ CommandSuggest-MCDR is an MCDR plugin that provides a more elegant command compl
 
 1. Download the latest version of McdrCmdSuggest from [Modrinth](https://modrinth.com/mod/mcdrcmdsuggest) or [GitHub Releases](https://github.com/PairZhu/McdrCmdSuggest/releases).
 2. Place the downloaded jar file into the `mods` folder of your Minecraft server.
-3. Install the corresponding MCDR plugin on the server (needs to be installed separately).
+3. Install this plugin on the server using `!!MCDR plugin install command_suggest`.
 4. Restart the server.
 
 
@@ -55,7 +55,7 @@ McdrCmdSuggest implements command completion as follows:
 
 1. Registers a special command `__mcdrcmdsuggest_register` to receive command registration information from the server.
 2. Dynamically registers Minecraft commands based on the received information.
-3. If a command includes argument suggestions (`suggests`), a suggest method is added to query the corresponding MCDR plugin for suggestions (uses HTTP by default, only local communication between server and MCDR, no need to expose ports). Client suggestions are transmitted via Minecraft's native protocol.
+3. If a command includes argument suggestions (`suggests`), a suggests method is added to query the corresponding MCDR plugin for suggestions (uses HTTP by default, only local communication between server and MCDR, no need to expose ports). Client suggestions are transmitted via Minecraft's native protocol.
 
 ## 🤝 Contributing
 
