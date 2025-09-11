@@ -1,0 +1,19 @@
+{
+    "id": "command_suggest",
+    "version": "1.0.0",
+    "name": "CommandSuggest",
+    "description": {
+        "en_us": "MCDR command completion plugin supporting parameter suggestions.",
+        "zh_cn": "支持参数提示的MCDR命令补全插件。"
+    },
+    "author": [
+        "PairZhu"
+    ],
+    "link": "https://github.com/PairZhu/CommandSuggest-MCDR",
+    "dependencies": {
+        "mcdreforged": ">=2.12.0"
+    },
+    "resources": [
+        "LICENSE"
+    ]
+}
