@@ -1,0 +1,2 @@
+command_suggest:
+  mod_not_detected: "未检测到Mod \"MCDR-Command-Suggestion\"!!!\n请确保该mod已安装并重启服务器。\n您可以从 https://modrinth.com/mod/mcdrcmdsuggest 下载它。"

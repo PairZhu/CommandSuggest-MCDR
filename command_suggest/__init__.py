@@ -1,4 +1,5 @@
 import json
+import re
 import socket
 import threading
 from dataclasses import dataclass
@@ -72,6 +73,11 @@ class ServerManager:
 server_manager: ServerManager
 config: Config
 suggest_http_server: SuggestHttpServer | None = None
+is_mod_loaded = False
+
+
+def tr(key: str, /, *args, **kwargs):
+    return server_manager.plugin_server.tr("command_suggest." + key, *args, **kwargs)
 
 
 def get_suggestions(player: str, command: str) -> list[str]:
@@ -99,6 +105,10 @@ def get_command_tree() -> list[dict] | None:
 def send_command_tree() -> None:
     if not server_manager.plugin_server.is_server_startup():
         return
+    if is_mod_loaded is False:
+        server_manager.plugin_server.logger.error(tr("mod_not_detected"))
+        return
+
     command_tree = get_command_tree()
     if command_tree is None:
         return
@@ -122,6 +132,17 @@ def get_free_port() -> int:
         return s.getsockname()[1]
 
 
+def on_info(server: mcdr.PluginServerInterface, info: mcdr.Info):
+    global is_mod_loaded
+    if is_mod_loaded:
+        return
+    if info.is_user:
+        return
+    if re.match(r"^\s*[\\\|-]* mcdrcmdsuggest\b", info.content):
+        server.logger.debug(f"Detected CommandSuggest mod message: {info.content}")
+        is_mod_loaded = True
+
+
 def on_load(server: mcdr.PluginServerInterface, old):
     global config, server_manager, suggest_http_server
     config = server.load_config_simple("config.json", target_class=Config)
@@ -132,7 +153,9 @@ def on_load(server: mcdr.PluginServerInterface, old):
         suggest_http_server = SuggestHttpServer(config.host, config.port)
         suggest_http_server.start()
     elif config.mode == "stdio":
-        raise NotImplementedError("STDIO mode is not implemented yet.")
+        raise NotImplementedError(
+            "STDIO mode is not implemented yet, please use HTTP mode."
+        )
     else:
         raise ValueError("Invalid mode in config. Use 'http' or 'stdio'.")
 

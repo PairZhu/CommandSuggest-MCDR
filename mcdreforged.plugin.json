@@ -1,6 +1,6 @@
 {
     "id": "command_suggest",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "name": "CommandSuggest",
     "description": {
         "en_us": "MCDR command completion plugin supporting parameter suggestions.",
@@ -14,6 +14,7 @@
         "mcdreforged": ">=2.12.0"
     },
     "resources": [
+        "lang",
         "LICENSE"
     ]
 }

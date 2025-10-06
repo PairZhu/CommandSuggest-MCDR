@@ -1,0 +1,2 @@
+command_suggest:
+  mod_not_detected: "Mod \"MCDR-Command-Suggestion\" not detected!!!\nPlease ensure the mod is installed and restart the server.\nYou can download it from https://modrinth.com/mod/mcdrcmdsuggest"
