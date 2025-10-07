@@ -144,7 +144,11 @@ def on_info(server: mcdr.PluginServerInterface, info: mcdr.Info):
 
 
 def on_load(server: mcdr.PluginServerInterface, old):
-    global config, server_manager, suggest_http_server
+    global config, server_manager, suggest_http_server, is_mod_loaded
+    # 读取旧数据，恢复 is_mod_loaded 状态
+    if old:
+        is_mod_loaded = getattr(old, "is_mod_loaded", False) or is_mod_loaded
+
     config = server.load_config_simple("config.json", target_class=Config)
     if config.mode == "http":
         if config.port == 0:
