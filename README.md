@@ -34,6 +34,7 @@ CommandSuggest-MCDR是一个MCDR插件，为[MCDReforged](https://github.com/Fal
 | `mode` | 通信模式，目前仅支持`http`                            | `http`      |
 | `host` | http服务器监听的主机地址                              | `localhost` |
 | `port` | http服务器监听的端口号，设置为0则自动选择一个可用端口 | `0`         |
+| `force_load` | 是否强制加载插件，即使未检测到Mod也尝试连接Mod服务器 | `false`     |
 
 
 ## 📝 使用方法

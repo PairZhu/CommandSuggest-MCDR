@@ -1,2 +1,3 @@
 command_suggest:
   mod_not_detected: "Mod \"MCDR-Command-Suggestion\" not detected!!!\nPlease ensure the mod is installed and restart the server.\nYou can download it from https://modrinth.com/mod/mcdrcmdsuggest"
+  force_load_warning: "Force load mode is enabled. Although the Mod \"MCDR-Command-Suggestion\" is not detected, the plugin will still attempt to connect to the Mod server. The plugin may not function properly."

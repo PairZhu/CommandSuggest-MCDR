@@ -19,6 +19,7 @@ class Config(mcdr.Serializable):
     mode: str = "http"  # "http" 或 "stdio"
     host: str = "localhost"
     port: int = 0
+    force_load: bool = False
 
 
 class ServerManager:
@@ -103,11 +104,16 @@ def get_command_tree() -> list[dict] | None:
 
 
 def send_command_tree() -> None:
+    global is_mod_loaded
     if not server_manager.plugin_server.is_server_startup():
         return
     if is_mod_loaded is False:
-        server_manager.plugin_server.logger.error(tr("mod_not_detected"))
-        return
+        if not config.force_load:
+            server_manager.plugin_server.logger.error(tr("mod_not_detected"))
+            return
+        else:
+            server_manager.plugin_server.logger.warning(tr("force_load_warning"))
+            is_mod_loaded = True
 
     command_tree = get_command_tree()
     if command_tree is None:

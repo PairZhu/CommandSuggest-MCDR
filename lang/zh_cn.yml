@@ -1,2 +1,3 @@
 command_suggest:
   mod_not_detected: "未检测到Mod \"MCDR-Command-Suggestion\"!!!\n请确保该mod已安装并重启服务器。\n您可以从 https://modrinth.com/mod/mcdrcmdsuggest 下载它。"
+  force_load_warning: "强制加载模式已启用，尽管未检测到Mod \"MCDR-Command-Suggestion\"，插件仍将尝试连接到Mod服务器。插件可能无法正常工作。"

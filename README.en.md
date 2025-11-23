@@ -35,6 +35,7 @@ CommandSuggest-MCDR is an MCDR plugin that provides a more elegant command compl
 | `mode`             | Communication mode, currently only supports `http`                                      | `http`        |
 | `host`             | Host address for the HTTP server to listen on                                           | `localhost`   |
 | `port`             | Port number for the HTTP server to listen on; set to 0 to auto-select an available port | `0`           |
+| `force_load`      | Whether to force load the plugin, attempting to connect to the Mod server even if not detected | `false`       |
 
 
 ## 📝 Usage
