@@ -144,6 +144,10 @@ def on_info(server: mcdr.PluginServerInterface, info: mcdr.Info):
         return
     if info.is_user:
         return
+    if info.content == "$$McdrCmdSuggest initialized$$":
+        server.logger.debug("Detected CommandSuggest mod initialization message.")
+        is_mod_loaded = True
+        return
     if re.match(r"^\s*[\\\|-]* mcdrcmdsuggest\b", info.content):
         server.logger.debug(f"Detected CommandSuggest mod message: {info.content}")
         is_mod_loaded = True
