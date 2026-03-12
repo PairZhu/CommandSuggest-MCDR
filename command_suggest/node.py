@@ -1,6 +1,7 @@
+import logging
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Dict, List
+from typing import Any, Dict, Iterable, List, Set, Tuple
 
 
 import mcdreforged.api.all as mcdr
@@ -31,25 +32,65 @@ class CommandNode:
     children: List["CommandNode"] = field(default_factory=list)
     suggestible: bool = False
 
-    @classmethod
-    def from_mcdr_node(cls, name: str, node: mcdr.AbstractNode) -> "CommandNode":
-        node_type = NodeTypes.from_mcdr_node(node.__class__)
-        suggestible = False
-        if (
+    @staticmethod
+    def _is_suggestible(node: mcdr.AbstractNode) -> bool:
+        return (
             isinstance(node, mcdr.ArgumentNode)
             and node._suggestion_getter.__code__.co_code
             != (lambda: []).__code__.co_code
-        ):
-            suggestible = True
-        command_node = cls(name=name, type=node_type, suggestible=suggestible)
+        )
+
+    @staticmethod
+    def _iter_mcdr_children(
+        node: mcdr.AbstractNode,
+    ) -> Iterable[Tuple[str, mcdr.AbstractNode]]:
         for literal, literal_children in node._children_literal.items():
             if literal_children:
-                child_node = cls.from_mcdr_node(literal, literal_children[0])
-                command_node.children.append(child_node)
+                yield literal, literal_children[0]
         for argument_child in node._children:
-            child_name = getattr(argument_child, "_ArgumentNode__name", "<unknown>")
-            child_node = cls.from_mcdr_node(child_name, argument_child)
-            command_node.children.append(child_node)
+            yield getattr(argument_child, "_ArgumentNode__name", "<unknown>"), argument_child
+
+    @staticmethod
+    def _warn_cycle(
+        logger: logging.Logger | None, path: tuple[str, ...], child_name: str
+    ) -> None:
+        if logger is not None:
+            logger.warning(
+                "Detected cyclic command node reference, skipping branch: %s -> %s",
+                " ".join(path),
+                child_name,
+            )
+
+    @classmethod
+    def from_mcdr_node(
+        cls,
+        name: str,
+        node: mcdr.AbstractNode,
+        logger: logging.Logger | None = None,
+        path: tuple[str, ...] = (),
+        visiting: Set[int] | None = None,
+    ) -> "CommandNode":
+        if visiting is None:
+            visiting = set()
+
+        node_id = id(node)
+        current_path = (*path, name)
+        command_node = cls(
+            name=name,
+            type=NodeTypes.from_mcdr_node(node.__class__),
+            suggestible=cls._is_suggestible(node),
+        )
+        visiting.add(node_id)
+        try:
+            for child_name, child in cls._iter_mcdr_children(node):
+                if id(child) in visiting:
+                    cls._warn_cycle(logger, current_path, child_name)
+                    continue
+                command_node.children.append(
+                    cls.from_mcdr_node(child_name, child, logger, current_path, visiting)
+                )
+        finally:
+            visiting.remove(node_id)
         return command_node
 
     def to_dict(self) -> Dict[str, Any]:

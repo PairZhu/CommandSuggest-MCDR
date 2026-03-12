@@ -97,7 +97,9 @@ def get_command_tree() -> list[dict] | None:
         plugin_command_holder = pch_list[0]
         command_nodes.append(
             CommandNode.from_mcdr_node(
-                command_name, plugin_command_holder.node
+                command_name,
+                plugin_command_holder.node,
+                server_manager.plugin_server.logger,
             ).to_dict()
         )
     return command_nodes
