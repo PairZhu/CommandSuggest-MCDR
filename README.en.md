@@ -4,6 +4,8 @@
 
 [![Modrinth Downloads](https://img.shields.io/modrinth/dt/mcdrcmdsuggest?logo=modrinth&label=Modrinth)
 ](https://modrinth.com/mod/mcdrcmdsuggest)
+[![CurseForge Downloads](https://cf.way2muchnoise.eu/short_1537964_downloads.svg)
+](https://www.curseforge.com/minecraft/mc-mods/mcdr-command-suggestion)
 
 ## ✨ A More Elegant MCDR Command Completion
 
@@ -23,7 +25,7 @@ CommandSuggest-MCDR is an MCDR plugin that provides a more elegant command compl
 
 ## 📦 Installation
 
-1. Download the latest version of McdrCmdSuggest from [Modrinth](https://modrinth.com/mod/mcdrcmdsuggest) or [GitHub Releases](https://github.com/PairZhu/McdrCmdSuggest/releases).
+1. Download the latest version of McdrCmdSuggest from [Modrinth](https://modrinth.com/mod/mcdrcmdsuggest), [CurseForge](https://www.curseforge.com/minecraft/mc-mods/mcdr-command-suggestion), or [GitHub Releases](https://github.com/PairZhu/McdrCmdSuggest/releases).
 2. Place the downloaded jar file into the `mods` folder of your Minecraft server.
 3. Install this plugin on the server using `!!MCDR plugin install command_suggest`.
 4. Restart the server.

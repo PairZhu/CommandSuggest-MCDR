@@ -4,6 +4,8 @@
 
 [![Modrinth Downloads](https://img.shields.io/modrinth/dt/mcdrcmdsuggest?logo=modrinth&label=Modrinth)
 ](https://modrinth.com/mod/mcdrcmdsuggest)
+[![CurseForge Downloads](https://cf.way2muchnoise.eu/short_1537964_downloads.svg)
+](https://www.curseforge.com/minecraft/mc-mods/mcdr-command-suggestion)
 
 ## ✨ 更优雅的MCDR命令补全实现
 
@@ -23,7 +25,7 @@ CommandSuggest-MCDR是一个MCDR插件，为[MCDReforged](https://github.com/Fal
 
 ## 📦 安装
 
-1. 从[Modrinth](https://modrinth.com/mod/mcdrcmdsuggest)或[GitHub Releases](https://github.com/PairZhu/McdrCmdSuggest/releases)下载最新版本的McdrCmdSuggest
+1. 从[Modrinth](https://modrinth.com/mod/mcdrcmdsuggest)、[CurseForge](https://www.curseforge.com/minecraft/mc-mods/mcdr-command-suggestion)或[GitHub Releases](https://github.com/PairZhu/McdrCmdSuggest/releases)下载最新版本的McdrCmdSuggest
 2. 将下载的jar文件放入Minecraft服务端的mods文件夹中
 3. 在服务器端安装此插件`!!MCDR plugin install command_suggest`
 4. 重启服务器
