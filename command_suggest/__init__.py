@@ -3,6 +3,7 @@ import re
 import socket
 import threading
 from dataclasses import dataclass
+from typing import Callable, Optional
 
 import mcdreforged.api.all as mcdr
 from mcdreforged.command.command_manager import CommandManager
@@ -28,7 +29,7 @@ class ServerManager:
         self._mcdr_server: MCDReforgedServer = server._mcdr_server
         self._command_manager: CommandManager = self._mcdr_server.command_manager
         self._plugin_server: mcdr.PluginServerInterface = server
-        self._original_registry_handler: callable | None = None
+        self._original_registry_handler: Optional[Callable] = None
 
     @property
     def mcdr_server(self):
@@ -42,7 +43,7 @@ class ServerManager:
     def plugin_server(self):
         return self._plugin_server
 
-    def setup_registry_hook(self, callback: callable) -> None:
+    def setup_registry_hook(self, callback: Callable) -> None:
         with self._lock:
             self._original_registry_handler = (
                 self._mcdr_server.on_plugin_registry_changed
@@ -73,7 +74,7 @@ class ServerManager:
 
 server_manager: ServerManager
 config: Config
-suggest_http_server: SuggestHttpServer | None = None
+suggest_http_server: Optional[SuggestHttpServer] = None
 is_mod_loaded = False
 
 
@@ -91,7 +92,7 @@ def get_suggestions(player: str, command: str) -> list[str]:
     return list({s.suggest_input for s in suggestions})
 
 
-def get_command_tree() -> list[dict] | None:
+def get_command_tree() -> Optional[list[dict]]:
     command_nodes: list[dict] = []
     for command_name, pch_list in server_manager.command_manager.root_nodes.items():
         plugin_command_holder = pch_list[0]
