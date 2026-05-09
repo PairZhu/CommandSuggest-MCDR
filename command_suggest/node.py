@@ -1,7 +1,7 @@
 import logging
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Dict, Iterable, List, Set, Tuple
+from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 
 
 import mcdreforged.api.all as mcdr
@@ -52,7 +52,7 @@ class CommandNode:
 
     @staticmethod
     def _warn_cycle(
-        logger: logging.Logger | None, path: tuple[str, ...], child_name: str
+        logger: Optional[logging.Logger], path: Tuple[str, ...], child_name: str
     ) -> None:
         if logger is not None:
             logger.warning(
@@ -66,9 +66,9 @@ class CommandNode:
         cls,
         name: str,
         node: mcdr.AbstractNode,
-        logger: logging.Logger | None = None,
-        path: tuple[str, ...] = (),
-        visiting: Set[int] | None = None,
+        logger: Optional[logging.Logger] = None,
+        path: Tuple[str, ...] = (),
+        visiting: Optional[Set[int]] = None,
     ) -> "CommandNode":
         if visiting is None:
             visiting = set()

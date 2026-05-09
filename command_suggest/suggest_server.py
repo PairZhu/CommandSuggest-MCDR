@@ -1,4 +1,5 @@
 import threading
+from typing import Optional
 
 import uvicorn
 from fastapi import FastAPI
@@ -10,8 +11,8 @@ class SuggestHttpServer:
     def __init__(self, host: str, port: int):
         self.host = host
         self.port = port
-        self.server: uvicorn.Server | None = None
-        self.thread: threading.Thread | None = None
+        self.server: Optional[uvicorn.Server] = None
+        self.thread: Optional[threading.Thread] = None
 
     def start(self):
         app = FastAPI()
